@@ -1,17 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowUpCircle, ExternalLink, MessageSquare } from 'lucide-react';
-import CommentModal from './CommentModal';
 
-const StoryCard = ({ story, fetchComments }) => {
-  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
-  const [comments, setComments] = useState([]);
-
-  const handleViewComments = async () => {
-    const fetchedComments = await fetchComments(story.objectID);
-    setComments(fetchedComments);
-    setIsCommentModalOpen(true);
-  };
-
+const StoryCard = ({ story }) => {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
       <div className="p-6">
@@ -32,20 +23,15 @@ const StoryCard = ({ story, fetchComments }) => {
             Read More
             <ExternalLink className="w-4 h-4 ml-2" />
           </a>
-          <button
-            onClick={handleViewComments}
+          <Link
+            to={`/comments/${story.objectID}`}
             className="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
           >
             View Comments
             <MessageSquare className="w-4 h-4 ml-2" />
-          </button>
+          </Link>
         </div>
       </div>
-      <CommentModal
-        isOpen={isCommentModalOpen}
-        onClose={() => setIsCommentModalOpen(false)}
-        comments={comments}
-      />
     </div>
   );
 };

@@ -7,6 +7,11 @@ export const fetchTopStories = async (query = '') => {
   return response.data.hits;
 };
 
+export const fetchStory = async (storyId) => {
+  const response = await axios.get(`${BASE_URL}/items/${storyId}`);
+  return response.data;
+};
+
 export const fetchComments = async (storyId) => {
   const response = await axios.get(`${BASE_URL}/items/${storyId}`);
   return response.data.children;
