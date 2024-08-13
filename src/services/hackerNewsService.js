@@ -6,3 +6,8 @@ export const fetchTopStories = async (query = '') => {
   const response = await axios.get(`${BASE_URL}/search?tags=front_page&hitsPerPage=100&query=${query}`);
   return response.data.hits;
 };
+
+export const fetchComments = async (storyId) => {
+  const response = await axios.get(`${BASE_URL}/items/${storyId}`);
+  return response.data.children;
+};
